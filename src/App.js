@@ -35,7 +35,6 @@ class App extends Component {
     // Grab first URL for search
     await this.setState({ searchPage: 1 });
 
-    console.log(this.state.searchPage);
     let url = await `https://www.omdbapi.com/?apikey=d65fcc7d&s=${query}&page=${
       this.state.searchPage
     }`;
@@ -50,7 +49,6 @@ class App extends Component {
   };
 
   checkMoreResults = async (query) => {
-    await this.setState(prevState =>({ searchPage: prevState.searchPage + 1 }))
     const showMoreUrl = await `https://www.omdbapi.com/?apikey=d65fcc7d&s=${query}&page=${this
       .state.searchPage}`;
 
@@ -72,8 +70,6 @@ class App extends Component {
     const data = await axFetch.data;
     await this.setState({ movies: data.Search });
 
-    console.log(this.state.movies)
-
     await this.checkMoreResults(this.state.searchQuery);
   };
 
@@ -81,7 +77,7 @@ class App extends Component {
     await this.setState(prevState => ({
       searchPage: prevState.searchPage - 1
     }));
-    let url = `https://www.omdbapi.com/?apikey=d65fcc7d&s=${
+    let url = await `https://www.omdbapi.com/?apikey=d65fcc7d&s=${
       this.state.searchQuery
     }&page=${this.state.searchPage}`;
 
@@ -128,16 +124,8 @@ class App extends Component {
         ) : (
           <></>
         )}
-        {this.state.searchPage < 2 ? (
-          <></>
-        ) : (
-          <PrevResults onPrevResults={this.onPrevResults} />
-        )}
-        {this.state.hasMoreResults === true ? (
-          <MoreResults onMoreResults={this.onMoreResults} />
-        ) : (
-          <></>
-        )}
+        { this.state.searchPage === 1 ? <></> : <PrevResults onPrevResults={this.onPrevResults} /> }
+        { this.state.hasMoreResults === true ? <MoreResults onMoreResults={this.onMoreResults} /> : <></> }
       </AppContainer>
     );
   }
