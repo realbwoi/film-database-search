@@ -33,56 +33,61 @@ class App extends Component {
 
   onMovieSearch = async (query) => {
     // Grab first URL for search
-    this.setState({ searchPage: 1 });
-    let url = `https://www.omdbapi.com/?apikey=d65fcc7d&s=${query}&page=${
+    await this.setState({ searchPage: 1 });
+
+    console.log(this.state.searchPage);
+    let url = await `https://www.omdbapi.com/?apikey=d65fcc7d&s=${query}&page=${
       this.state.searchPage
     }`;
 
     // Add JSON result to state
     const axFetch = await axios.get(url);
-    this.setState({ movies: await axFetch.data.Search });
+    const data = await axFetch.data;
+    this.setState({ movies: data.Search });
 
     // Check if more results are available
-    this.checkMoreResults(query);
+    await this.checkMoreResults(query);
   };
 
   checkMoreResults = async (query) => {
-    const showMoreUrl = `https://www.omdbapi.com/?apikey=d65fcc7d&s=${query}&page=${this
-      .state.searchPage + 1}`;
+    await this.setState(prevState =>({ searchPage: prevState.searchPage + 1 }))
+    const showMoreUrl = await `https://www.omdbapi.com/?apikey=d65fcc7d&s=${query}&page=${this
+      .state.searchPage}`;
 
     const axFetchMore = await axios.get(showMoreUrl);
 
-    console.log(axFetchMore.data);
-
-    if (axFetchMore.data.Response === "True") {
+    if (axFetchMore.data.Search) {
       this.setState({ hasMoreResults: true });
     }
   };
 
   onMoreResults = async () => {
-    this.setState((prevState) => (
-      { searchPage: prevState.searchPage + 1}
-    ));
-    let url = `https://www.omdbapi.com/?apikey=d65fcc7d&s=${
-      this.state.searchQuery
-    }&page=${this.state.searchPage}`;
+    await this.setState(prevState => ({
+      searchPage: prevState.searchPage + 1
+    }));
+
+    let url = await `https://www.omdbapi.com/?apikey=d65fcc7d&s=${this.state.searchQuery}&page=${this.state.searchPage}`;
 
     const axFetch = await axios.get(url);
-    this.setState({ movies: await axFetch.data.Search });
+    const data = await axFetch.data;
+    await this.setState({ movies: data.Search });
 
-    this.checkMoreResults();
+    console.log(this.state.movies)
+
+    await this.checkMoreResults(this.state.searchQuery);
   };
 
   onPrevResults = async () => {
-    this.setState((prevState) => (
-      { searchPage: prevState.searchPage - 1}
-    ));
+    await this.setState(prevState => ({
+      searchPage: prevState.searchPage - 1
+    }));
     let url = `https://www.omdbapi.com/?apikey=d65fcc7d&s=${
       this.state.searchQuery
     }&page=${this.state.searchPage}`;
 
     const axFetch = await axios.get(url);
-    this.setState({ movies: await axFetch.data.Search })
+    const data = await axFetch.data;
+    this.setState({ movies: data.Search })
   };
 
   setRef = ref => {
@@ -115,12 +120,24 @@ class App extends Component {
             />
           </Main>
         </HeroContainer>
-        { this.state.movies ? <MovieList
-          movies={this.state.movies}
-          onMovieClick={this.onMovieClick}
-        /> : <></> }
-        { this.state.searchPage > 1 ? <PrevResults onPrevResults={this.onPrevResults} /> : <></> }
-        { this.state.hasMoreResults === true ? <MoreResults onMoreResults={this.onMoreResults} /> : <></> }
+        {this.state.movies ? (
+          <MovieList
+            movies={this.state.movies}
+            onMovieClick={this.onMovieClick}
+          />
+        ) : (
+          <></>
+        )}
+        {this.state.searchPage < 2 ? (
+          <></>
+        ) : (
+          <PrevResults onPrevResults={this.onPrevResults} />
+        )}
+        {this.state.hasMoreResults === true ? (
+          <MoreResults onMoreResults={this.onMoreResults} />
+        ) : (
+          <></>
+        )}
       </AppContainer>
     );
   }
