@@ -34,7 +34,7 @@ class App extends Component {
   onMovieSearch = async (query) => {
     // Grab first URL for search
     this.setState({ searchPage: 1 });
-    let url = `http://www.omdbapi.com/?apikey=d65fcc7d&s=${query}&page=${
+    let url = `https://www.omdbapi.com/?apikey=d65fcc7d&s=${query}&page=${
       this.state.searchPage
     }`;
 
@@ -47,7 +47,7 @@ class App extends Component {
   };
 
   checkMoreResults = async (query) => {
-    const showMoreUrl = `http://www.omdbapi.com/?apikey=d65fcc7d&s=${query}&page=${this
+    const showMoreUrl = `https://www.omdbapi.com/?apikey=d65fcc7d&s=${query}&page=${this
       .state.searchPage + 1}`;
 
     const axFetchMore = await axios.get(showMoreUrl);
@@ -63,7 +63,7 @@ class App extends Component {
     this.setState((prevState) => (
       { searchPage: prevState.searchPage + 1}
     ));
-    let url = `http://www.omdbapi.com/?apikey=d65fcc7d&s=${
+    let url = `https://www.omdbapi.com/?apikey=d65fcc7d&s=${
       this.state.searchQuery
     }&page=${this.state.searchPage}`;
 
@@ -77,7 +77,7 @@ class App extends Component {
     this.setState((prevState) => (
       { searchPage: prevState.searchPage - 1}
     ));
-    let url = `http://www.omdbapi.com/?apikey=d65fcc7d&s=${
+    let url = `https://www.omdbapi.com/?apikey=d65fcc7d&s=${
       this.state.searchQuery
     }&page=${this.state.searchPage}`;
 
@@ -90,7 +90,7 @@ class App extends Component {
   };
 
   onMovieClick = (title) => {
-    let URL = `http://www.omdbapi.com/?apikey=d65fcc7d&t=${title}`;
+    let URL = `https://www.omdbapi.com/?apikey=d65fcc7d&t=${title}`;
 
     axios.get(URL).then(res => {
       const result = res.data;
