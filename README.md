@@ -1,9 +1,9 @@
-## Film Database Search
+# Film Database Search
 
-# Application MVP
+## Application MVP
 A personal project that allows you to search through a database using film title keywords. Click on a specific film to find out more about it. You can also find a link to IMDb for most films.
 
-# Project Tasklist
+## Project Tasklist
 - [x] Add API endpoints
 - [x] Create all components
 - [x] Add search functionality
@@ -15,4 +15,4 @@ A personal project that allows you to search through a database using film title
 - [ ] Add responsive styling
 - [ ] Verify mobile accessiblity
 
-API provided by http://http://www.omdbapi.com/ (The Open Movie Database)
+API provided by http://www.omdbapi.com/ (The Open Movie Database)
