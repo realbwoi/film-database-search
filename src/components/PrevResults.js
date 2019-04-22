@@ -8,17 +8,42 @@ class PrevResults extends Component {
 
   render() {
     return (
-      <ResultsButton onClick={this.onPrevResultsClick}>Previous Results</ResultsButton>
+      <ResultsButton onClick={this.onPrevResultsClick}>
+        <i class="fas fa-chevron-left" />
+        <span>Previous</span>
+      </ResultsButton>
     );
   }
 }
 
 const ResultsButton = styled.button`
-  height: 40px;
-  width: 100px;
-  padding: 16px;
+  font-weight: 700;
   color: white;
-  background: green;
-`
+  background: none;
+  text-transform: uppercase;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  margin-right: 8px;
+
+  & span {
+    padding: 16px;
+    border-bottom: 4px solid transparent;
+    transition: 125ms ease-in-out;
+  }
+
+  &:hover span {
+    border-bottom: 4px solid #ff7844;
+  }
+
+  & .fa-chevron-left {
+    transition: 125ms ease-in-out;
+  }
+
+  &:hover .fa-chevron-left {
+    transform: translateX(-4px);
+  }
+`;
 
 export default PrevResults;

@@ -23,7 +23,7 @@ const UnorderedList = styled.ul`
   justify-items: center;
   list-style: none;
   padding: 0;
-  overflow: scroll;
+  margin: 0;
 `
 
 export default MovieList;

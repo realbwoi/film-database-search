@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import MovieDesc from './components/MovieDesc'
+import MovieDesc from './components/MovieDesc';
 import MovieList from './components/MovieList';
 import styled from 'styled-components';
 import SearchInput from './components/SearchInput';
 import { createGlobalStyle } from 'styled-components';
 import MoreResults from './components/MoreResults';
 import PrevResults from './components/PrevResults';
+import Logo from './components/Logo';
 
 class App extends Component {
   state = {
@@ -82,7 +83,7 @@ class App extends Component {
     }&page=${this.state.searchPage}`;
 
     const axFetch = await axios.get(url);
-    const data = await axFetch.data;
+    const { data } = await axFetch;
     this.setState({ movies: data.Search })
   };
 
@@ -94,7 +95,7 @@ class App extends Component {
     let URL = `https://www.omdbapi.com/?apikey=d65fcc7d&t=${title}`;
 
     axios.get(URL).then(res => {
-      const result = res.data;
+      const { data: result } = res;
       this.setState({ movieInfo: result });
     });
   };
@@ -102,60 +103,92 @@ class App extends Component {
   render() {
     return (
       <AppContainer className="App">
+
         <GlobalStyle />
+        <HeaderContainer>
+          <Logo />
+          <SearchInput
+            onFormSubmit={this.onFormSubmit}
+            setRef={this.setRef}
+            movies={this.state.movies}
+          />
+        </HeaderContainer>
         <HeroContainer>
           <MovieDesc movie={this.state.movieInfo} />
-          <Main>
-            <h1>
-              Movie info,
-              <br />à la Carte!
-            </h1>
-            <SearchInput
-              onFormSubmit={this.onFormSubmit}
-              setRef={this.setRef}
+          {this.state.movies ? (
+            <MovieList
+              movies={this.state.movies}
+              onMovieClick={this.onMovieClick}
             />
-          </Main>
+          ) : (
+            <></>
+          )}
         </HeroContainer>
-        {this.state.movies ? (
-          <MovieList
-            movies={this.state.movies}
-            onMovieClick={this.onMovieClick}
-          />
-        ) : (
-          <></>
-        )}
-        { this.state.searchPage === 1 ? <></> : <PrevResults onPrevResults={this.onPrevResults} /> }
-        { this.state.hasMoreResults === true ? <MoreResults onMoreResults={this.onMoreResults} /> : <></> }
+        <ButtonContainer>
+          {this.state.searchPage === 1 ? (
+            <></>
+          ) : (
+            <PrevResults onPrevResults={this.onPrevResults} />
+          )}
+          {this.state.hasMoreResults === true ? (
+            <MoreResults onMoreResults={this.onMoreResults} />
+          ) : (
+            <></>
+          )}
+        </ButtonContainer>
       </AppContainer>
     );
   }
 }
 
 const GlobalStyle = createGlobalStyle`
+
   html {
-    height: 100%
+    height: 100%;
     font-family: 'Poppins', sans-serif;
-    background:
-      radial-gradient( circle at right, rgba(240,105,72,1) 0%, rgba(51, 51, 51, 1) 30%) no-repeat,
-      radial-gradient( rgba(51, 51, 51, 1), rgba(51, 51, 51, 1));
     color: white;
+  }
+
+  body {
+    background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  #root {
+    display: flex;
+    justify-content: center;
   }
 `;
 
-const AppContainer = styled.div`
-
+const AppContainer = styled.main`
+  max-height: 100vh;
+  margin: 0 32px;
+  width: 960px;
 `
 
 const HeroContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-`
-
-const Main = styled.div`
-  & h1 {
-    margin: 0;
-    padding: 32px 0;
-  }
+  flex-direction: column;
+  margin: 0 auto;
 `;
+
+const HeaderContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const ButtonContainer = styled.div`
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 40px 0;
+  padding: 8px 0;
+`
 
 export default App;
