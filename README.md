@@ -15,4 +15,6 @@ A personal project that allows you to search through a database using film title
 - [ ] Add responsive styling
 - [ ] Verify mobile accessiblity
 
+LIVE DEMO: https://film-info-search.netlify.com/
+
 API provided by http://www.omdbapi.com/ (The Open Movie Database)
