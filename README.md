@@ -10,8 +10,7 @@ A personal project that allows you to search through a database using film title
 - [x] Add movie selection functionality
 - [x] Add Next and Previous Buttons
 - [ ] Add functionality for edge cases:
-    - [ ] If no more movies in list, remove "Next" button
-    - [ ] If no movies found in search, display error message
+    - [x] If no movies found in search, display error message
 - [ ] Add responsive styling
 - [ ] Verify mobile accessiblity
 
