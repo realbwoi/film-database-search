@@ -8,12 +8,8 @@ const MovieDesc = (props) => {
        "https://www.wildhareboca.com/wp-content/uploads/sites/310/2018/03/image-not-available.jpg";
    };
 
-<<<<<<< HEAD
    console.log(props.movie);
 
-=======
-  console.log(props);
->>>>>>> 2875b2567f1ab5983ad7eed7b4b5a2464f84618e
   if(!props.movie.Title) {
     return <DescContainer>
       <h2>Find information on your favorite pieces of film.</h2>
@@ -30,10 +26,6 @@ const MovieDesc = (props) => {
             }
             alt={props.movie.Title}
             onError={imgError}
-<<<<<<< HEAD
-
-=======
->>>>>>> 2875b2567f1ab5983ad7eed7b4b5a2464f84618e
           />
         </div>
         <div className="film-info">
@@ -45,10 +37,7 @@ const MovieDesc = (props) => {
               <br />
               {props.movie.Plot}
             </p>
-<<<<<<< HEAD
           <a className="film-info--link" href={`https://www.imdb.com/title/${props.movie.imdbID}`} target="_blank" rel="noopener noreferrer">See on IMDB</a>
-=======
->>>>>>> 2875b2567f1ab5983ad7eed7b4b5a2464f84618e
           </div>
         </div>
       </DescContainer>
@@ -88,14 +77,11 @@ const DescContainer = styled.div`
       font-weight: 300;
       font-size: 14px;
     }
-<<<<<<< HEAD
 
     &--link {
       text-decoration: none;
       color: #ff7844;
     }
-=======
->>>>>>> 2875b2567f1ab5983ad7eed7b4b5a2464f84618e
   }
 
   .img-wrapper {
