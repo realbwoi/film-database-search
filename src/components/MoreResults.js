@@ -7,26 +7,12 @@ class MoreResults extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <NextResults onClick={this.onMoreResultsClick}>
         <span>Next</span>
         <i className="fas fa-chevron-right" />
       </NextResults>
     );
-    // console.log(this.props)
-    // if (this.props.Search.length < 10) {
-    //   return (
-    //     <></>
-    //   );
-    // } else {
-    //   return (
-    //     <NextResults onClick={this.onMoreResultsClick}>
-    //       <span>Next</span>
-    //       <i className="fas fa-chevron-right" />
-    //     </NextResults>
-    //   );
-    // }
   }
 }
 

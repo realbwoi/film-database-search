@@ -9,7 +9,11 @@ class PrevResults extends Component {
   render() {
     return (
       <ResultsButton onClick={this.onPrevResultsClick}>
+<<<<<<< HEAD
         <i className="fas fa-chevron-left" />
+=======
+        <i class="fas fa-chevron-left" />
+>>>>>>> 2875b2567f1ab5983ad7eed7b4b5a2464f84618e
         <span>Previous</span>
       </ResultsButton>
     );

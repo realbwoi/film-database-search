@@ -4,7 +4,10 @@ import styled from 'styled-components'
 
 const MovieList = (props) => {
   const movies = props.movies;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2875b2567f1ab5983ad7eed7b4b5a2464f84618e
   return (
     <UnorderedList>
       {movies.map((item, index) => {
