@@ -43,7 +43,11 @@ class App extends Component {
     // Add JSON result to state
     const axFetch = await axios.get(url);
     const data = await axFetch.data;
-    this.setState({ movies: data.Search });
+    if (!data.Response) {
+      this.setState({ movies: [] });
+    } else {
+      this.setState({ movies: data.Search });
+    }
 
     // Check if more results are available
     await this.checkMoreResults(query);
@@ -77,7 +81,7 @@ class App extends Component {
 
       await this.checkMoreResults(this.state.searchQuery);
     } else {
-      this.setState({ movies: {} });
+      this.setState({ movies: [] });
     }
 
   };
@@ -123,7 +127,7 @@ class App extends Component {
           />
         </HeaderContainer>
         <HeroContainer>
-          <MovieDesc movie={this.state.movieInfo} />
+          <MovieDesc query={this.state.searchQuery} movieList={this.state.movies} movie={this.state.movieInfo} />
           {this.state.movies ? (
             <MovieList
               movies={this.state.movies}
@@ -134,12 +138,14 @@ class App extends Component {
           )}
         </HeroContainer>
         <ButtonContainer>
+          {/* Don't render 'Prev' button on first page */}
           {this.state.searchPage === 1 ? (
             <></>
           ) : (
             <PrevResults onPrevResults={this.onPrevResults} />
           )}
-          {this.state.movies.length < 10 ? (
+          {/* Don't render 'Next' button if on last page of list or if there are no results */}
+          {(Array.isArray(this.state.movies) && this.state.movies.length < 10) || !this.state.hasMoreResults ? (
             <></>
           ) : (
             <MoreResults onMoreResults={this.onMoreResults} />

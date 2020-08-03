@@ -8,13 +8,8 @@ const MovieDesc = (props) => {
        "https://www.wildhareboca.com/wp-content/uploads/sites/310/2018/03/image-not-available.jpg";
    };
 
-   console.log(props.movie);
-
-  if(!props.movie.Title) {
-    return <DescContainer>
-      <h2>Find information on your favorite pieces of film.</h2>
-    </DescContainer>;
-  } else {
+   // Renders if the movie title exists
+   if (props.movie.Title) {
     return (
       <DescContainer>
         <div className="img-wrapper">
@@ -42,6 +37,18 @@ const MovieDesc = (props) => {
         </div>
       </DescContainer>
     );
+
+    // Renders on site initialization or if a movie hasn't been selected from the list
+  } else if((props.query === "" && (Array.isArray(props.movieList) && props.movieList.length === 0)) || (props.query !== "" && (Array.isArray(props.movieList) && props.movieList.length > 0))) {
+    return <DescContainer>
+      <h2>Find information on your favorite pieces of film.</h2>
+    </DescContainer>
+
+    // Renders if there isn't a query match with the API
+  } else if (props.query !== "" && !props.movie.Title){
+    return <DescContainer>
+      <p className="film-info--no-results">Unfortunately, there were no film results for "<span className="film-info--no-results-alt">{props.query}</span>"</p>
+    </DescContainer>
   }
 };
 
@@ -81,6 +88,15 @@ const DescContainer = styled.div`
     &--link {
       text-decoration: none;
       color: #ff7844;
+    }
+
+    &--no-results {
+      font-weight: 700;
+      font-size: 18px;
+
+      &-alt {
+        color: #ff7844;
+      }
     }
   }
 
