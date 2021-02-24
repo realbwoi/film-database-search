@@ -22,15 +22,11 @@ class SearchInput extends Component {
       </InputForm>
     );
   }
-};
+}
 
 const InputForm = styled.form`
   width: 320px;
-<<<<<<< HEAD
   margin: 12px 0 40px 0;
-=======
-  margin: 40px 0;
->>>>>>> 84b4330dc83e1bd2d84e1d0519aa5b7cd429f5c6
 
   & .search--input {
     width: 240px;
