@@ -26,7 +26,10 @@ const ResultsButton = styled.button`
   cursor: pointer;
   outline: none;
   margin-right: 8px;
+<<<<<<< HEAD
   width: 140px;
+=======
+>>>>>>> 84b4330dc83e1bd2d84e1d0519aa5b7cd429f5c6
 
   & span {
     padding: 16px;
