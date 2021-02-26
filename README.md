@@ -15,7 +15,6 @@ A personal project that allows you to search through a database using film title
 - [x] Add functionality for edge cases:
     - [x] If no more movies in list, remove "Next" button
     - [x] If no movies found in search, display error message
->>>>>>> 84b4330dc83e1bd2d84e1d0519aa5b7cd429f5c6
 - [x] Add responsive styling
 - [ ] Verify mobile accessiblity
 
